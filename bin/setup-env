@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export GOPATH=$(pwd)/backends/go
+eval $(docker-machine env default)

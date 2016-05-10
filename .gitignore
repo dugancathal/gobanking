@@ -1,1 +1,5 @@
 *.iml
+backends/**/bin/
+backends/**/pkg/
+backends/go/src/github.com/*
+!backends/go/src/github.com/dugancathal/

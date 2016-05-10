@@ -1,0 +1,70 @@
+#!/bin/bash
+
+ERROR_LOG="/tmp/gobanking.error.log"
+BINDIR="$(pwd)/bin"
+BACKEND=$1
+FRONTEND=$2
+DOCKER_NAME="default"
+DOCKER_MACHINE_DRIVER="virtualbox"
+
+error() {
+    local msg=$1
+    echo "$msg"
+    echo "Check $ERROR_LOG for more details."
+    exit 1
+}
+
+install_docker() {
+    if which docker > $ERROR_LOG 2>&1; then
+      return
+    fi
+
+    if gem list nokogiri | grep -vq nokogiri; then
+      echo "Installing nokogiri"
+      if ! gem install nokogiri >$ERROR_LOG 2>&1; then
+        error "Failed to install nokogiri."
+      fi
+    fi
+    docker_download_path=$(curl -s https://github.com/docker/toolbox/releases/latest -L | nokogiri -e 'puts $_.css(%q(a[href*=".pkg"])).attr("href")')
+    echo "Installing docker from: ${docker_download_path}" > $ERROR_LOG
+    curl -sL https://github.com/${docker_download_path} > /tmp/docker-toolbox.pkg
+    if ! sudo installer -pkg /tmp/docker-toolbox.pkg -target / > $ERROR_LOG 2>&1; then
+        error "Failed to install docker-toolbox."
+    fi
+}
+
+boot_docker_vm() {
+  if [[ "$(docker-machine status $DOCKER_NAME)" == "Running" ]] ; then
+    return
+  fi
+
+  if [[ "$(docker-machine status $DOCKER_NAME)" == "Stopped" ]] ; then
+    docker-machine start $DOCKER_NAME
+    return
+  fi
+
+  docker-machine create --driver $DOCKER_MACHINE_DRIVER $DOCKER_NAME
+}
+
+if [[ "$#" < 2 ]]; then
+  echo "USAGE: $0 [go|java] [react|angular2]"
+  exit 2
+fi
+
+if ! ruby -v | grep -E '2.[2-9]' > $ERROR_LOG 2>&1; then
+  error "You need to install a ruby version >= 2.2"
+fi
+
+if ! brew --version >/dev/null 2>&1; then
+  error "You need to have homebrew installed"
+fi
+
+brew update
+install_docker
+boot_docker_vm
+$BINDIR/setup-$BACKEND
+$BINDIR/setup-$FRONTEND
+
+source $BINDIR/setup-env
+
+echo "Done"

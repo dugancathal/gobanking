@@ -1,0 +1,6 @@
+#!/bin/bash
+
+brew install go
+export GOPATH=$(pwd)/backends/go
+go get github.com/onsi/ginkgo/ginkgo
+go get github.com/onsi/gomega
