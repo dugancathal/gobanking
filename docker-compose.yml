@@ -58,7 +58,7 @@ services:
     build:
       context: './banking_gateway'
     ports:
-      - "8085:3000"
+      - "8085:80"
     links:
       - products:products.dev
   system-tests:
@@ -66,6 +66,7 @@ services:
     build:
       context: './spec'
     links:
+      - gateway:gateway.dev
       - products:products.dev
     volumes:
       - "./spec:/usr/src/app/spec"
