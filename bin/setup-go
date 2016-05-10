@@ -2,5 +2,6 @@
 
 brew install go
 export GOPATH=$(pwd)/backends/go
+export BACKEND_DIR=$GOPATH/src/github.com/dugancathal/gobanking/
 go get github.com/onsi/ginkgo/ginkgo
 go get github.com/onsi/gomega

@@ -3,34 +3,34 @@ services:
   bank:
     image: 'bank:v1'
     build:
-      context: './bank'
+      context: '${BACKEND_DIR}/bank'
     ports:
       - "8082:80"
     volumes:
-      - "./bank:/go/src/github.com/dugancathal/gobanking/bank"
+      - "${BACKEND_DIR}/bank:/go/src/github.com/dugancathal/gobanking/bank"
     command: "go run src/github.com/dugancathal/gobanking/bank/main.go"
   cart:
     image: 'cart:v1'
     build:
-      context: './cart'
+      context: '${BACKEND_DIR}/cart'
     ports:
       - "8083:80"
     volumes:
-      - "./cart:/go/src/github.com/dugancathal/gobanking/cart"
+      - "${BACKEND_DIR}/cart:/go/src/github.com/dugancathal/gobanking/cart"
     command: "go run src/github.com/dugancathal/gobanking/cart/main.go"
   products:
     image: 'products:v1'
     build:
-      context: './products'
+      context: '${BACKEND_DIR}/products'
     ports:
       - "8081:80"
     volumes:
-      - "./products:/go/src/github.com/dugancathal/gobanking/products"
+      - "${BACKEND_DIR}/products:/go/src/github.com/dugancathal/gobanking/products"
     command: "go run src/github.com/dugancathal/gobanking/products/main.go"
   purchase:
     image: 'purchase:v1'
     build:
-      context: './purchase'
+      context: '${BACKEND_DIR}/purchase'
     ports:
       - "8084:80"
     links:
@@ -38,17 +38,34 @@ services:
       - bank:bank.dev
       - products:products.dev
     volumes:
-      - "./purchase:/go/src/github.com/dugancathal/gobanking/purchase"
+      - "${BACKEND_DIR}/purchase:/go/src/github.com/dugancathal/gobanking/purchase"
     command: "go run src/github.com/dugancathal/gobanking/purchase/main.go"
 
   rspec:
     image: 'banking-spec:v1'
     build:
-      context: './spec'
+      context: '${BACKEND_DIR}/spec'
     links:
       - cart:cart.dev
       - bank:bank.dev
       - products:products.dev
       - purchase:purchase.dev
+    volumes:
+      - "${BACKEND_DIR}/spec:/usr/src/app/spec"
+
+  gateway:
+    image: 'banking-gateway:v1'
+    build:
+      context: './banking_gateway'
+    ports:
+      - "8085:3000"
+    links:
+      - products:products.dev
+  system-tests:
+    image: 'banking-system-spec:v1'
+    build:
+      context: './spec'
+    links:
+      - products:products.dev
     volumes:
       - "./spec:/usr/src/app/spec"
