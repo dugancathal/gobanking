@@ -1,0 +1,23 @@
+#!/bin/bash
+
+WEBDRIVER_LOG=/tmp/webdriver.log
+
+root="$(dirname $0)/.."
+
+cd $root
+python -m SimpleHTTPServer 8080 &
+server_pid=$!
+sleep 1
+
+if ! pgrep -f selenium >/dev/null; then
+    webdriver-manager update --standalone >> $WEBDRIVER_LOG 2>&1
+    webdriver-manager start >> $WEBDRIVER_LOG 2>&1 &
+    sleep 1
+fi
+
+protractor spec/config/feature-spec-conf.js
+success=$?
+
+kill "$server_pid" >/dev/null 2>&1
+
+exit $success
