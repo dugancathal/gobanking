@@ -8,10 +8,25 @@ export default class Fetcher {
     }
     
     _fetch (endpoint, method, body=null) {
-        
+        window.fetch(endpoint, this._createInit(method, body))
     }
     
-    _createHeader(method) {
+    _createInit(method, body) {
+        let init = {
+            method: method,
+            headers: this._createHeaders()
+        };
         
+        if (body !== null) {
+            init.body = body;
+        }
+        
+        return init;
+    }
+
+    _createHeaders() {
+        let headers = new Headers();
+        headers.append("Content-Type", "Application/JSON");
+        return headers;
     }
 }
