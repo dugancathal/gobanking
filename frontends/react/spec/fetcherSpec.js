@@ -1,12 +1,9 @@
-import Fetcher from '../src/client/app/fetcher'
+import {fetcher} from '../src/client/app/fetcher'
 
 describe('Fetcher', function(){
-    let fetcher;
-
     const spiedOn = {};
 
     beforeEach(function() {
-        fetcher = new Fetcher();
         spiedOn.fetch = window.fetch;
     });
 
@@ -45,7 +42,7 @@ describe('Fetcher', function(){
             headers: expectedHeaders
         };
 
-        expect(window.fetch).toHaveBeenCalledWith('/something', expectedParameters);
+        expect(window.fetch).toHaveBeenCalledWith('localhost:3000/something', expectedParameters);
     });
 
     it('sets the content type to application/json', function() {
