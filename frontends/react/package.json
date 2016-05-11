@@ -13,10 +13,14 @@
   },
   "devDependencies": {
     "babel-cli": "^6.8.0",
-    "karma": "^0.13.22"
+    "karma": "^0.13.22",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-webpack": "^1.7.0",
+    "phantomjs-prebuilt": "^2.1.7"
   },
   "scripts": {
-    "test": "babel-node spec/run.js",
+    "test": "karma start",
     "watch": "webpack --colors --progress --watch",
     "start": "webpack --colors --progress"
   },

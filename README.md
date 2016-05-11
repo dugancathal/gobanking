@@ -33,3 +33,7 @@ a directory for the API Gateway in Rails, and a directory for each JS frontend.
 
 All of the stories are oriented toward a horizontal slice of the application (frontend, backend).
 If a vertical orientation is desired, write a story.
+
+# TODO
+
+* Setup script for React frontend, installing global dependencies on webpack and jasmine
