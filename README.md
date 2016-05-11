@@ -16,6 +16,18 @@ One canned-interview to rule them all...
 
 ### A note on structure
 
+This repository can accommodate multiple backends and multiple frontends, and also
+includes a Rails API gateway. The arguments specified to the setup script will
+configure the environment to use the specified frontend and backend.
+
+Executing `bin/test` (TODO: create this) will stand up the Docker instances
+needed to test the specified backend and frontend combo. (TODO: make it run the
+frontend, backend, and gateway specs as well.)
+
+System tests go in `/spec`. Tests for the gateway go in `/banking_gateway/spec`.
+Go backend tests go in `/backends/go/.../spec`. (TODO: create the other test dirs
+and mention them.) Each of these can be run individually.
+
 At the top-level, there's a directory for the GOPATH that serves as the backend,
 a directory for the API Gateway in Rails, and a directory for each JS frontend.
 
