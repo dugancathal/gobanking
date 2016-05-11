@@ -62,8 +62,8 @@ fi
 brew update
 install_docker
 boot_docker_vm
-$BINDIR/setup-$BACKEND
-$BINDIR/setup-$FRONTEND
+source $BINDIR/setup-$BACKEND
+source $BINDIR/setup-$FRONTEND
 
 source $BINDIR/setup-env
 

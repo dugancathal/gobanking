@@ -37,3 +37,7 @@ If a vertical orientation is desired, write a story.
 # TODO
 
 * Setup script for React frontend, installing global dependencies on webpack and jasmine
+* Inform the user that they may need to call `npm watch` in `frontends/react`
+* `webpack-dev-server --content-base src/client/` in `/frontends/react` to serve
+the application, or a different command if angular2 is used. Unify these commands
+into a `bin/run` script.

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+CLIENT_DIR=$FRONTEND_DIR/src/client
+webpack-dev-server --content-base $CLIENT_DIR
