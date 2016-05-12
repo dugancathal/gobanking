@@ -1,0 +1,23 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile(
+            'com.fasterxml.jackson.core:jackson-databind:2.6.6'
+    )
+    testCompile(
+    )
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.11'
+}
