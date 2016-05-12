@@ -41,3 +41,23 @@ If a vertical orientation is desired, write a story.
 * `webpack-dev-server --content-base src/client/` in `/frontends/react` to serve
 the application, or a different command if angular2 is used. Unify these commands
 into a `bin/run` script.
+
+## A note on Docker
+There are several Docker instances that will be created, each defined in one `Dockerfile`.
+`docker-compose.yml` is a "recipe" for `docker-compose` to create and start all of
+those containers with the specified options; it's a substitute for calling `docker`
+repeatedly directly.
+
+The `Dockerfile`s have an `EXPOSE` directive which causes the specified port to be
+available to other containers (but not to the host). `docker-compose.yml` contains
+`port` directives which publish ports on each container to the host. The first
+port number is the external port; the second one is the internal port. The `link`
+directives in this file create hostnames by which these containers can refer to
+each other, but the host is not aware of these names.
+
+Because we're on OSX, the containers cannot be run directly. Instead, they're in
+a VM controlled by `docker-machine`. A consequence of this is that the ports published
+to the host will not be visible at `localhost`; instead, they'll be visible at
+the hostname of the address revealed by calling `docker-machine url`. Keep this
+in mind if you wish to execute tests locally (e.g. on the host) which rely on the
+containers existing.

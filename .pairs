@@ -1,0 +1,7 @@
+pairs:
+  mk: Mark Kollasch; mkollasch
+  md: Mark Douglass; mdouglass
+  ic: Interview Candidate
+email:
+  prefix: pair
+  domain: pivotal.io
