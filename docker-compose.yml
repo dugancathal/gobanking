@@ -15,7 +15,7 @@ services:
       - products:products.dev
 
   backend-tests:
-    image: 'banking-spec:v1'
+    image: 'backend-tests:v1'
     links:
       - cart:cart.dev
       - bank:bank.dev
@@ -29,6 +29,7 @@ services:
       - "8085:80"
     links:
       - products:products.dev
+      - bank:bank.dev
   system-tests:
     image: 'banking-system-spec:v1'
     build:

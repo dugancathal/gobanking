@@ -37,7 +37,7 @@ services:
       - products:products.dev
     command: "./gradlew :components/purchase:bootRun"
   backend-tests:
-    image: 'banking-java-tests:v1'
+    image: 'backend-java-tests:v1'
     build:
       context: '${BACKEND_DIR}'
       dockerfile: 'test.dockerfile'

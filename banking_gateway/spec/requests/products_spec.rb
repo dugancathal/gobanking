@@ -20,15 +20,4 @@ RSpec.describe 'Products' do
     expect(Rails.configuration.products_client).to have_received(:find).with('124')
     expect(parsed_body).to eq product
   end
-
-  private
-
-  def parsed_body
-    parsed = JSON.parse(response.body)
-    if parsed.is_a?(Array)
-      parsed.map &:deep_symbolize_keys
-    else
-      parsed.deep_symbolize_keys
-    end
-  end
 end

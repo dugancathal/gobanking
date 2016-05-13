@@ -42,7 +42,7 @@ services:
       - "./${BACKEND_DIR}/purchase:/go/src/github.com/dugancathal/gobanking/purchase"
     command: "go run src/github.com/dugancathal/gobanking/purchase/main.go"
   backend-tests:
-    image: 'banking-tests:v1'
+    image: 'backend-go-tests:v1'
     build:
       context: '${BACKEND_DIR}/spec'
     volumes:
