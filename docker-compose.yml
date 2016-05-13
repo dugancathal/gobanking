@@ -36,5 +36,8 @@ services:
     links:
       - gateway:gateway.dev
       - products:products.dev
+      - cart:cart.dev
+      - bank:bank.dev
+      - purchase:purchase.dev
     volumes:
       - "./spec:/usr/src/app/spec"
