@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+brew install Caskroom/cask/java
+export BACKEND_DIR=backends/java
+
+pushd $BACKEND_DIR
+./gradlew test
+popd

@@ -33,6 +33,23 @@ install_docker() {
     fi
 }
 
+create_pow_link() {
+    local port=$1
+    local file=$2
+
+    echo "$port" > "~/.pow/${file}"
+}
+
+install_pow() {
+    if ! [[ -d ~/.pow ]]; then
+        curl get.pow.cx | sh
+        create_pow_link 8081 products
+        create_pow_link 8082 bank
+        create_pow_link 8083 cart
+        create_pow_link 8084 purchase
+    fi
+}
+
 boot_docker_vm() {
   if [[ "$(docker-machine status $DOCKER_NAME)" == "Running" ]] ; then
     return
@@ -62,6 +79,9 @@ fi
 brew update
 install_docker
 boot_docker_vm
+
+install_pow
+
 source $BINDIR/setup-$BACKEND
 source $BINDIR/setup-$FRONTEND
 
