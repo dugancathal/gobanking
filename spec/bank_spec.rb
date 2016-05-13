@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'pp'
-require 'nokogiri'
 
 describe 'Banking' do
   RSpec::Matchers.define :have_response_field do |field, opts={}|
