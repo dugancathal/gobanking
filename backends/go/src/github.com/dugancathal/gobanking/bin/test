@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-BACKEND_DIR=$(pwd)
 DOCKER_COMPOSE_YML=../../../../../../docker-compose.yml
-docker-compose -f $DOCKER_COMPOSE_YML restart cart bank purchase products
-
-sleep 3
-
-docker-compose -f $DOCKER_COMPOSE_YML run rspec
+docker-compose -f $DOCKER_COMPOSE_YML -f docker-compose.yml restart cart bank purchase products
+docker-compose -f $DOCKER_COMPOSE_YML -f docker-compose.yml run backend-tests

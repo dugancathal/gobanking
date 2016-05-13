@@ -8,6 +8,7 @@ buildscript {
 }
 
 apply plugin: 'idea'
+apply plugin: 'maven'
 apply plugin: 'spring-boot'
 
 repositories {

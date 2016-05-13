@@ -1,0 +1,49 @@
+version: '2'
+services:
+  bank:
+    image: 'java-bank:v1'
+    build:
+      context: '${BACKEND_DIR}'
+      dockerfile: 'bank.dockerfile'
+    ports:
+      - "8082:8080"
+    command: "./gradlew :components/bank:bootRun"
+  cart:
+    image: 'java-cart:v1'
+    build:
+      context: '${BACKEND_DIR}'
+      dockerfile: 'cart.dockerfile'
+    ports:
+      - "8083:8080"
+    command: "./gradlew :components/cart:bootRun"
+  products:
+    image: 'java-products:v1'
+    build:
+      context: '${BACKEND_DIR}'
+      dockerfile: 'products.dockerfile'
+    ports:
+      - "8081:8080"
+    command: "./gradlew :components/products:bootRun"
+  purchase:
+    image: 'java-purchase:v1'
+    build:
+      context: '${BACKEND_DIR}'
+      dockerfile: 'purchase.dockerfile'
+    ports:
+      - "8084:8080"
+    links:
+      - cart:cart.dev
+      - bank:bank.dev
+      - products:products.dev
+    command: "./gradlew :components/purchase:bootRun"
+  backend-tests:
+    image: 'banking-java-tests:v1'
+    build:
+      context: '${BACKEND_DIR}'
+      dockerfile: 'test.dockerfile'
+    links:
+      - cart:cart.dev
+      - bank:bank.dev
+      - products:products.dev
+      - purchase:purchase.dev
+    command: "./gradlew test"
