@@ -13,8 +13,13 @@ module Clients
     end
 
     def find(id)
-      funds = JSON.parse(http.get("/banks/#{id}/funds").body)
-      {'id' => id, 'amount' => funds['money']}
+      response = http.get("/banks/#{id}/funds")
+      if response.code == 200
+        funds = JSON.parse(response.body)
+        {'id' => id, 'amount' => funds['money']}
+      else
+        raise ActiveRecord::RecordNotFound
+      end
     end
 
     def deposit(bank_id, amount)
@@ -25,6 +30,7 @@ module Clients
       include HTTParty
       default_timeout 5
       base_uri 'http://bank.dev/'
+      headers({'CONTENT-TYPE' => 'application/json'})
     end
   end
 end
