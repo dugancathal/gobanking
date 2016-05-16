@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export FRONTEND_DIR=$(pwd)/frontends/react
+export FRONTEND_DIR=frontends/react
 cd $FRONTEND_DIR
 npm install
 npm install webpack -g
