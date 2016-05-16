@@ -12,4 +12,6 @@ RUN ./gradlew :components/common:compileJava
 
 COPY components/cart /usr/src/javabanking/components/cart
 
+ENV SERVER_PORT 80
+
 CMD ["./gradlew", ":components/cart:bootRun"]
