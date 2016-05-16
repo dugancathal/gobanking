@@ -5,3 +5,4 @@ backends/go/src/github.com/*
 !backends/go/src/github.com/dugancathal/
 node_modules/
 typings/
+bundle.js*
