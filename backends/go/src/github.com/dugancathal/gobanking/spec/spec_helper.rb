@@ -19,7 +19,7 @@ end
 def all_servers_up?
   %w(http://products.dev http://bank.dev http://cart.dev/ http://purchase.dev/).all? do |url|
     begin
-      HTTParty.get(url, timeout: 0.2)
+      HTTParty.get(url, timeout: 1)
     rescue Net::OpenTimeout, Errno::ECONNREFUSED
       return false
     end
