@@ -4,7 +4,7 @@ require 'rspec'
 RSpec.configure do |config|
   config.before(:suite) do
     error = nil
-    success = 10.times.map.any? do
+    success = 60.times.map.any? do
       sleep 0.5
       success, error = all_servers_up?
       success

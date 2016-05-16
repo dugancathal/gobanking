@@ -17,7 +17,6 @@ describe 'Banking' do
     create_response = client.create_bank
     bank_id = create_response.fetch('id')
 
-
     deposit_response = client.deposit(bank_id, amount: 50)
     expect(deposit_response.code).to eq 201
 
