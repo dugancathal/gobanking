@@ -1,0 +1,7 @@
+version: '2'
+services:
+  frontend:
+    build:
+      context: '${FRONTEND_DIR}'
+    volumes:
+      - './${FRONTEND_DIR}:/usr/share/nginx/html'

@@ -30,6 +30,12 @@ services:
     links:
       - products:products.dev
       - bank:bank.dev
+  frontend:
+    image: 'banking-frontend:v1'
+    ports:
+      - "8080:80"
+    links:
+      - gateway:gateway.dev
   system-tests:
     image: 'banking-system-spec:v1'
     build:
