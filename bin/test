@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+if [[ -z $BACKEND_DIR ]]; then
+    echo 'No $BACKEND_DIR set. Run `. bin/setup` with your preferred backend and client choices' 1>&2
+    exit 1
+fi
+
+if [[ -z "$1" ]]; then
+    echo "USAGE: $0 [system|backend|all]" 1>&2
+    exit 2
+fi
+
+
+case "$1" in
+    system)
+        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm system-tests
+        ;;
+    backend)
+        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm backend-tests
+        ;;
+    all)
+        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm backend-tests
+        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm system-tests
+        ;;
+esac

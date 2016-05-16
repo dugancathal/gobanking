@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+ARGS=""
+if [[ "$1" == '--follow' ]]; then
+    shift
+    ARGS="$ARGS -f"
+fi
+
+SERVICES=""
+if [[ "$#" > 0 ]]; then
+  SERVICES="$@"
+fi
+
+docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml logs $ARGS $SERVICES

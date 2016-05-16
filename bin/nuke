@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+SERVICES=""
+if [[ "$#" > 0 ]]; then
+  SERVICES="$@"
+fi
+
+docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml stop $SERVICES
+docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml rm --force --all $SERVICES
