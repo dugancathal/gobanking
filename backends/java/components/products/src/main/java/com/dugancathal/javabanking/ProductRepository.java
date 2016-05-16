@@ -2,11 +2,11 @@ package com.dugancathal.javabanking;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
 
 @Component
 public class ProductRepository {
@@ -15,8 +15,8 @@ public class ProductRepository {
 		return catalog().get(idOrName);
 	}
 
-	public List<Product> all() {
-		return catalog().values().stream().collect(toList());
+	public Collection<Product> all() {
+		return catalog().values().stream().collect(toSet());
 	}
 
 	private Map<String, Product> catalog() {

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Collection;
 
 @RestController
 public class ProductsController {
@@ -14,7 +14,7 @@ public class ProductsController {
 	private ProductRepository productRepository;
 
 	@RequestMapping(path="/products", method= RequestMethod.GET)
-	public List<Product> getProducts() {
+	public Collection<Product> getProducts() {
 		return productRepository.all();
 	}
 
