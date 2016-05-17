@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
-import { getProducts } from '../actions/productActions'
+import productActions from '../actions/productActions'
 
 class Products extends Component {
     constructor(props) {
@@ -9,7 +9,7 @@ class Products extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch(getProducts())
+        this.props.dispatch(productActions.getProducts())
     }
 
     showProducts() {

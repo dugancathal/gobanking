@@ -11,10 +11,16 @@ const setProducts = (products) => {
     }
 }
 
-export const getProducts = () => {
+const getProducts = () => {
     return (dispatch) => {
         fetcher.get('products').then((response) => {
             dispatch(setProducts(response.body))
         })
     }
 }
+
+const productActions = {
+    getProducts
+}
+
+export default productActions

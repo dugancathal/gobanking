@@ -4,4 +4,4 @@ services:
     build:
       context: '${FRONTEND_DIR}'
     volumes:
-      - './${FRONTEND_DIR}:/usr/share/nginx/html'
+      - './${FRONTEND_DIR}/src/client:/usr/share/nginx/html'

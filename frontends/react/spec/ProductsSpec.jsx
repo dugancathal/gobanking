@@ -1,10 +1,9 @@
-import ReactTestUtils from 'react-addons-test-utils';
+import ReactTestUtils from 'react-addons-test-utils'
 import React from 'react';
 import configureMockStore from 'redux-mock-store'
 import { Provider } from 'react-redux'
 
 import Products from '../src/client/app/components/Products.jsx'
-import fetcher from "../src/client/app/fetcher"
 
 describe("Products", function () {
     describe("when products are present", () => {
