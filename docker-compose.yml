@@ -36,10 +36,10 @@ services:
       - "8080:80"
     links:
       - gateway:gateway.dev
-  system-tests:
-    image: 'banking-system-spec:v1'
+  api-tests:
+    image: 'banking-api-spec:v1'
     build:
-      context: './spec'
+      context: './spec/api-features'
     links:
       - gateway:gateway.dev
       - products:products.dev
@@ -47,4 +47,17 @@ services:
       - bank:bank.dev
       - purchase:purchase.dev
     volumes:
-      - "./spec:/usr/src/app/spec"
+      - "./spec/api-features/spec:/usr/src/app/spec"
+  e2e-tests:
+    image: 'banking-e2e-spec:v1'
+    build:
+      context: './spec/e2e-features'
+    links:
+      - gateway:gateway.dev
+      - products:products.dev
+      - cart:cart.dev
+      - bank:bank.dev
+      - purchase:purchase.dev
+      - frontend:frontend.dev
+    volumes:
+      - "./spec/e2e-features/spec:/usr/src/app/spec"

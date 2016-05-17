@@ -1,5 +1,6 @@
 require 'httparty'
 require 'rspec'
+require 'capybara'
 
 RSpec.configure do |config|
   config.before(:suite) do
@@ -11,6 +12,7 @@ RSpec.configure do |config|
     end
     raise "Unable to start all servers.\n #{error}" unless success
   end
+  Capybara.default_host = 'http://localhost:8080'
 end
 
 def all_servers_up?

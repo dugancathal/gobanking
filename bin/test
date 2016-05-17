@@ -6,20 +6,24 @@ if [[ -z $BACKEND_DIR ]]; then
 fi
 
 if [[ -z "$1" ]]; then
-    echo "USAGE: $0 [system|backend|all]" 1>&2
+    echo "USAGE: $0 [e2e|api|backend|all]" 1>&2
     exit 2
 fi
 
 
 case "$1" in
-    system)
-        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm system-tests
+    api)
+        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm api-tests
+        ;;
+    e2e)
+        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm e2e-tests
         ;;
     backend)
         docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm backend-tests
         ;;
     all)
         docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm backend-tests
-        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm system-tests
+        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm api-tests
+        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm e2e-tests
         ;;
 esac

@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'pp'
 
 describe 'Banking' do
   RSpec::Matchers.define :have_response_field do |field, opts={}|
