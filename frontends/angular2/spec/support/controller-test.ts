@@ -1,8 +1,8 @@
-import {TestComponentBuilder, inject, beforeEach, AnyTestFn} from "angular2/testing";
-import {Type} from 'angular2/src/facade/lang';
+import {TestComponentBuilder, inject, beforeEach} from "angular2/testing";
+import {Type} from "angular2/src/facade/lang";
 
 export type ComponentTestIt = (ComponentRef, ElementRef, ComponentFixture) => void;
-export type ComponentTestFunction = (ComponentRef, ComponentTestIt) => AnyTestFn;
+export type ComponentTestFunction = (ComponentRef, ComponentTestIt) => Function;
 type Suite = (ComponentTestFunction) => void;
 
 export const componentTest:ComponentTestFunction = (componentClass: Type, testCallback: ComponentTestIt) => {
@@ -11,7 +11,7 @@ export const componentTest:ComponentTestFunction = (componentClass: Type, testCa
         tcb = _tcb
     }));
 
-    let compileDirectiveAndRunTest:AnyTestFn = (done) => {
+    let compileDirectiveAndRunTest:Function = (done) => {
         tcb.createAsync(componentClass).then((fixture) => {
             let component = fixture.componentInstance,
                 element = fixture.nativeElement;

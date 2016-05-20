@@ -2,5 +2,7 @@
 
 export FRONTEND_DIR=frontends/angular2
 pushd $FRONTEND_DIR
+npm install -g webpack
 npm install
+webpack
 popd
