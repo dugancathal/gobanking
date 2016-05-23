@@ -8,7 +8,7 @@ services:
     ports:
       - "8082:80"
     volumes:
-        - "./${BACKEND_DIR}/bank:/go/src/github.com/dugancathal/gobanking/bank"
+        - "${BACKEND_DIR}/bank:/go/src/github.com/dugancathal/gobanking/bank"
     command: "go run src/github.com/dugancathal/gobanking/bank/main.go"
   cart:
     image: 'go-cart:v1'
@@ -17,7 +17,7 @@ services:
     ports:
       - "8083:80"
     volumes:
-      - "./${BACKEND_DIR}/cart:/go/src/github.com/dugancathal/gobanking/cart"
+      - "${BACKEND_DIR}/cart:/go/src/github.com/dugancathal/gobanking/cart"
     command: "go run src/github.com/dugancathal/gobanking/cart/main.go"
   products:
     image: 'go-products:v1'
@@ -26,7 +26,7 @@ services:
     ports:
       - "8081:80"
     volumes:
-      - "./${BACKEND_DIR}/products:/go/src/github.com/dugancathal/gobanking/products"
+      - "${BACKEND_DIR}/products:/go/src/github.com/dugancathal/gobanking/products"
     command: "go run src/github.com/dugancathal/gobanking/products/main.go"
   purchase:
     image: 'go-purchase:v1'
@@ -39,14 +39,14 @@ services:
       - bank:bank.dev
       - products:products.dev
     volumes:
-      - "./${BACKEND_DIR}/purchase:/go/src/github.com/dugancathal/gobanking/purchase"
+      - "${BACKEND_DIR}/purchase:/go/src/github.com/dugancathal/gobanking/purchase"
     command: "go run src/github.com/dugancathal/gobanking/purchase/main.go"
   backend-tests:
     image: 'backend-go-tests:v1'
     build:
       context: '${BACKEND_DIR}/spec'
     volumes:
-      - "./${BACKEND_DIR}/spec:/usr/src/app/spec"
+      - "${BACKEND_DIR}/spec:/usr/src/app/spec"
     links:
       - cart:cart.dev
       - bank:bank.dev
