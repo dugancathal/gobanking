@@ -21,3 +21,9 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.11'
 }
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
