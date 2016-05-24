@@ -2,7 +2,7 @@ module.exports = function(config) {
     config.set({
         basePath: '.',
         frameworks: ['jasmine'],
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
         files: ['spec/tests.webpack.js'],
         preprocessors: {'spec/*': ['webpack']},
         webpack: {
