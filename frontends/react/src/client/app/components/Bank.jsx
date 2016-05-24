@@ -7,16 +7,32 @@ export class Bank extends Component {
     constructor(props) {
         super(props)
         this.createAccount = this.createAccount.bind(this)
+        this.createDeposit = this.createDeposit.bind(this)
     }
 
     createAccount() {
         this.props.dispatch(bankActions.createAccount())
     }
 
+    createDeposit(amount) {
+        this.props.dispatch(bankActions.createDeposit(this.props.accountId, amount))
+    }
+
     showAccountInformation() {
-        const {accountId} = this.props
+        const {accountId, balance} = this.props
         if (accountId) {
-            return <p>Account ID: {accountId}</p>
+            return (
+                <div>
+                    <p className="account--id">Account ID: {accountId}</p>
+                    <p className="account--balance">Account balance: {balance}</p>
+
+                    <form className="deposit">
+                        <h3>Make a Deposit</h3>
+                        <input className="deposit--amount" ref="depositAmount"/>
+                        <button className="deposit--button" ref="depositButton">Deposit</button>
+                    </form>
+                </div>
+            )
         } else {
             return <button onClick={this.createAccount}>Create a new account</button>
         }
@@ -33,7 +49,8 @@ export class Bank extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        accountId: state.accountId
+        accountId: state.accountId,
+        balance: state.balance
     }
 }
 

@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public class BankControllerTest {
 	private BankController controller;
@@ -24,7 +25,8 @@ public class BankControllerTest {
 	@Test
 	public void makingADepositAddsMoneyToABank() {
 		Bank bank = controller.createAccount();
-		controller.depositMoney(bank.getId(), new Money(200));
+		Bank responseBank = controller.depositMoney(bank.getId(), new Money(200));
+		assertEquals(bank.getId(), responseBank.getId());
 		Money amount = controller.getFunds(bank.getId());
 
 		assertEquals(amount.getPennies(), 200);

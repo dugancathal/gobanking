@@ -16,7 +16,7 @@ case "$1" in
         docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm api-tests
         ;;
     e2e)
-        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm e2e-tests
+        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml -f $FRONTEND_DIR/docker-compose.yml run --rm e2e-tests
         ;;
     backend)
         docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm backend-tests
@@ -27,7 +27,7 @@ case "$1" in
     all)
         docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm backend-tests
         docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm api-tests
-        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm e2e-tests
+        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml -f $FRONTEND_DIR/docker-compose.yml run --rm e2e-tests
         docker-compose -f docker-compose.yml -f $FRONTEND_DIR/docker-compose.yml run --rm frontend-tests
         ;;
 esac

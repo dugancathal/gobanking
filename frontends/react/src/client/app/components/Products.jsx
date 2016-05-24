@@ -19,11 +19,11 @@ class Products extends Component {
             return (
                 <table>
                     <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                        </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                    </tr>
                     </thead>
                     <tbody>
                     { products.map((product) => {

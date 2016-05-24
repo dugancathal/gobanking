@@ -6,7 +6,7 @@ describe 'Product Catalog' do
 
     expect(page).to have_css 'th', text: 'Name'
 
-    pending 'Fetch polyfill'
+    pending 'environmental configuration of gateway URL'
     expect(page).to have_css 'tr', text: 'TeddyBear'
   end
 end
