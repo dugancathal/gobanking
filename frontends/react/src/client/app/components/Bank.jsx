@@ -6,16 +6,28 @@ import bankActions from '../actions/bankActions'
 export class Bank extends Component {
     constructor(props) {
         super(props)
+        this.state = { deposit: 0 };
         this.createAccount = this.createAccount.bind(this)
         this.createDeposit = this.createDeposit.bind(this)
+        this.handleDepositChange = this.handleDepositChange.bind(this)
     }
 
     createAccount() {
         this.props.dispatch(bankActions.createAccount())
     }
 
-    createDeposit(amount) {
-        this.props.dispatch(bankActions.createDeposit(this.props.accountId, amount))
+    createDeposit(e) {
+        e.preventDefault();
+        this.props.dispatch(
+            bankActions.createDeposit(
+              this.props.accountId,
+              this.state.deposit
+            )
+          )
+    }
+
+    handleDepositChange(e) {
+      this.setState({deposit: parseFloat(e.target.value)});
     }
 
     showAccountInformation() {
@@ -24,11 +36,12 @@ export class Bank extends Component {
             return (
                 <div>
                     <p className="account--id">Account ID: {accountId}</p>
-                    <p className="account--balance">Account balance: {balance}</p>
+                    <p className="account--balance">Account balance: ${balance}</p>
 
-                    <form className="deposit">
+                    <form className="deposit" onSubmit={this.createDeposit}>
                         <h3>Make a Deposit</h3>
-                        <input className="deposit--amount" ref="depositAmount"/>
+                        <label htmlFor="depositAmount">Deposit Amount</label>
+                        <input className="deposit--amount" ref="depositAmount" id="depositAmount" onChange={this.handleDepositChange}/>
                         <button className="deposit--button" ref="depositButton">Deposit</button>
                     </form>
                 </div>

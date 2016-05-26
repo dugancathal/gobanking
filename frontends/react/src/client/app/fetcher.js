@@ -1,3 +1,8 @@
+
+let fauxHeaders = () => {}
+fauxHeaders.prototype.append = () => {}
+
+let Headers = window.Headers || fauxHeaders
 const fetcher = {
     get: function (endpoint) {
         return this._fetch(endpoint, "GET")

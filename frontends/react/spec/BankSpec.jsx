@@ -100,10 +100,11 @@ describe("Bank", () => {
             bankComponent.props = {dispatch: dispatchSpy, accountId: 'myId'}
             spyOn(bankActions, 'createDeposit')
 
-            bankComponent.createDeposit(100)
+            bankComponent.state = {deposit: 9001}
+            bankComponent.createDeposit(new Event())
 
             expect(dispatchSpy).toHaveBeenCalled()
-            expect(bankActions.createDeposit).toHaveBeenCalledWith('myId', 100)
+            expect(bankActions.createDeposit).toHaveBeenCalledWith('myId', 9001)
         })
     })
 })

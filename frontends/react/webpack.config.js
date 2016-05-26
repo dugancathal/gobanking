@@ -5,7 +5,7 @@ var BUILD_DIR = path.resolve(__dirname, 'src/client/public');
 var APP_DIR = path.resolve(__dirname, 'src/client/app');
 
 var config = {
-    entry: APP_DIR + '/index.jsx',
+    entry: ['es6-promise', 'whatwg-fetch', APP_DIR + '/index.jsx'],
     devtool: 'source-map',
     output: {
         path: BUILD_DIR,

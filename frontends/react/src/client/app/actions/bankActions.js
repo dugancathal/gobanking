@@ -28,10 +28,10 @@ const createAccount = () => {
 
 const createDeposit = (id, amount) => {
     return (dispatch) => {
-        fetcher.post(`/banks/${id}/deposit`, {amount: amount}).then((depositResponse) => {
-            if (depositResponse.success) {
+        fetcher.post(`/banks/${id}/deposits`, JSON.stringify({amount: amount})).then((depositResponse) => {
+            if (depositResponse.status < 300 && depositResponse.status >= 200) {
                 fetcher.get(`/banks/${id}`).then((getResponse) => {
-
+                    dispatch(setBalance(getResponse.body.amount))
                 })
             }
         })
