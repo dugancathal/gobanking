@@ -10,6 +10,7 @@ RSpec.configure do |config|
 
   Capybara::Webkit.configure do |config|
     config.allow_url("frontend.dev")
+    config.allow_url("192.168.99.100")
   end
 
   config.include Capybara::DSL
