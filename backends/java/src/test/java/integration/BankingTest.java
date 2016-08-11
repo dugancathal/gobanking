@@ -19,7 +19,6 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebIntegrationTest
-@SpringApplicationConfiguration(classes = BankingTest.TestApp.class)
 public class BankingTest {
 	private static final double DOUBLE_TOLERANCE = 0.001;
 	private RestTemplate restTemplate;
@@ -81,12 +80,5 @@ public class BankingTest {
 	private String createPiggyBank() throws IOException {
 		Bank response = restTemplate.postForObject("http://localhost:8080/banks", null, Bank.class);
 		return response.getId();
-	}
-
-	@SpringBootApplication(scanBasePackageClasses = {BankApp.class, ProductsApp.class, CartApp.class, PurchaseApp.class})
-	public static class TestApp {
-		public static void main(String[] args) {
-			SpringApplication.run(TestApp.class, args);
-		}
 	}
 }
