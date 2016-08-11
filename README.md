@@ -4,11 +4,11 @@ One canned-interview to rule them all...
 
 ## Instructions for interviewers
 
-1. Copy and paste into terminal
+1. To run
   ```bash
   git clone git@github.com:dugancathal/gobanking.git
   cd gobanking
-  . bin/setup go react
+  . bin/setup [java|go (backend language)] [react|angular2 (frontend framework)] 
   ```
 
 1. Import stories.csv to tracker

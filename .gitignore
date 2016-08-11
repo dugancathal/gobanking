@@ -2,6 +2,7 @@
 backends/*/bin/
 backends/*/pkg/
 backends/go/src/github.com/*
+backends/go/src/gopkg.in
 !backends/go/src/github.com/dugancathal/
 node_modules/
 typings/
