@@ -62,7 +62,7 @@ dependencies {
 }
 
 springBoot {
-    mainClass = "com.integration.BankingTest.TestApp"
+    mainClass = "integration.BankApi"
 }
 
 test {
