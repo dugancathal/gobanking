@@ -1,4 +1,4 @@
-FROM ruby:2.3.0-onbuild
+FROM ruby:2.5.0
 
 RUN mkdir spec && mv *.rb spec/
 

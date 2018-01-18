@@ -1,4 +1,4 @@
-FROM rails:4.2.6
+FROM ruby:2.5.0
 
 EXPOSE 80
 

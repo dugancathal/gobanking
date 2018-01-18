@@ -1,11 +1,18 @@
-import ReactTestUtils from 'react-addons-test-utils'
+import ReactTestUtils from 'react-dom/test-utils'
 import React from 'react';
 import configureMockStore from 'redux-mock-store'
-import { Provider } from 'react-redux'
+import {Provider} from 'react-redux'
 
 import Products from '../src/client/app/components/Products.jsx'
 
 describe("Products", function () {
+    const doNothingThunkMiddleware = (store) => (next) => (action) => {
+        if(typeof action === 'function') {
+            return {type: "IGNORE_FUNCTIONS"}
+        }
+        return next(action)
+    };
+
     describe("when products are present", () => {
         let returnedProducts, component;
 
@@ -15,11 +22,11 @@ describe("Products", function () {
                 {name: 'Remote Control', id: '12', description: 'Cold and practical', price: {money: '19.99'}}
             ];
             const initialState = {products: returnedProducts};
-            const store = configureMockStore();
+            const store = configureMockStore([doNothingThunkMiddleware]);
 
             component = ReactTestUtils.renderIntoDocument(
                 <Provider store={store(initialState)}>
-                    <Products />
+                    <Products/>
                 </Provider>);
         })
 
@@ -41,11 +48,11 @@ describe("Products", function () {
     describe("when products are not present", () => {
         it("displays a sad message", () => {
             const initialState = {products: undefined};
-            const store = configureMockStore();
+            const store = configureMockStore([doNothingThunkMiddleware]);
 
             const component = ReactTestUtils.renderIntoDocument(
                 <Provider store={store(initialState)}>
-                    <Products />
+                    <Products/>
                 </Provider>);
 
             const sadMessage = ReactTestUtils.findRenderedDOMComponentWithTag(

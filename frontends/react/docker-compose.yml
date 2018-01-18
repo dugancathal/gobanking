@@ -10,9 +10,4 @@ services:
     build:
       context: '${FRONTEND_DIR}'
       dockerfile: 'test.dockerfile'
-    links:
-      - cart:cart.dev
-      - bank:bank.dev
-      - products:products.dev
-      - purchase:purchase.dev
     command: "npm test"

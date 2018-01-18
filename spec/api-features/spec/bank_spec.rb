@@ -17,7 +17,7 @@ describe 'Banking' do
     bank_id = create_response.fetch('id')
 
     deposit_response = client.deposit(bank_id, amount: 50)
-    expect(deposit_response.code).to eq 201
+    expect(deposit_response.code).to eq 200
 
     bank_response = client.get_bank(bank_id)
 
@@ -39,7 +39,7 @@ describe 'Banking' do
     end
 
     def deposit(bank_id, body)
-      make_call 'POST', "/banks/#{bank_id}/deposits", body
+      make_call 'POST', "/banks/#{bank_id}/deposit", body
     end
 
     def make_call(method, url, body={})

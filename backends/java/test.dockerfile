@@ -17,4 +17,4 @@ ENV PRODUCT_URL http://localhost:8080
 ENV CART_URL http://localhost:8080
 ENV PURCHASE_URL http://localhost:8080
 
-CMD ["./gradlew", "test"]
+CMD ["./gradlew", "clean", "test"]

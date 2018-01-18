@@ -1,4 +1,5 @@
 *.iml
+.idea
 backends/*/bin/
 backends/*/pkg/
 backends/go/src/github.com/*
@@ -7,3 +8,4 @@ backends/go/src/gopkg.in
 node_modules/
 typings/
 bundle.js*
+*/**/.DS_Store

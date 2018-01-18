@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'rspec', '~> 3.5.0.beta3'
-gem 'httparty', '~> 0.13'
-gem 'capybara', '~> 2.7.0'
+gem 'rspec'
+gem 'httparty'
+gem 'capybara'

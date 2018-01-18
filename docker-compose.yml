@@ -6,7 +6,6 @@ services:
     image: 'cart:v1'
   products:
     image: 'products:v1'
-
   purchase:
     image: 'purchase:v1'
     links:
@@ -30,12 +29,6 @@ services:
     links:
       - products:products.dev
       - bank:bank.dev
-  frontend:
-    image: 'banking-frontend:v1'
-    ports:
-      - "8080:80"
-    links:
-      - gateway:gateway.dev
   api-tests:
     image: 'banking-api-spec:v1'
     build:
@@ -48,16 +41,25 @@ services:
       - purchase:purchase.dev
     volumes:
       - "./spec/api-features/spec:/usr/src/app/spec"
-  e2e-tests:
-    image: 'banking-e2e-spec:v1'
-    build:
-      context: './spec/e2e-features'
+  frontend:
+    image: 'banking-frontend:v1'
+    ports:
+      - "8080:80"
     links:
+      - cart:cart.dev
       - gateway:gateway.dev
-      - products:products.dev
+    build:
+      context: '${FRONTEND_DIR}'
+    volumes:
+      - './${FRONTEND_DIR}/src/client:/usr/share/nginx/html'
+  frontend-tests:
+    image: 'frontend-react-tests:v1'
+    build:
+      context: '${FRONTEND_DIR}'
+      dockerfile: 'test.dockerfile'
+    links:
       - cart:cart.dev
       - bank:bank.dev
+      - products:products.dev
       - purchase:purchase.dev
-      - frontend:frontend.dev
-    volumes:
-      - "./spec/e2e-features/spec:/usr/src/app/spec"
+    command: "npm test"
