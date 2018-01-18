@@ -1,8 +1,9 @@
 Id,Title,Labels,Iteration,Iteration Start,Iteration End,Type,Estimate,Current State,Created at,Accepted at,Deadline,Requested By,Description,URL,Owned By
-119249957,Products should be CRUD-able,"",1,"May 9, 2016","May 15, 2016",feature,1,unstarted,"May 9, 2016",,,TJ Taylor,"As a user
+154445844,"When a deposit is created, the response code should be 201","",76,"Jan 15, 2018","Jan 21, 2018",feature,1,unstarted,"Jan 18, 2018",,,Christopher Wang,endpoint for creating deposits is /banks/{id}/deposit,https://www.pivotaltracker.com/story/show/154445844,
+128078625,Products should be CRUD-able,"",76,"Jan 15, 2018","Jan 21, 2018",feature,1,unstarted,"May 9, 2016",,,Christopher Wang,"As a user
 I want to manage products
-So that our other users can order MANY things (and not just teddy bears).",https://www.pivotaltracker.com/story/show/119249957,
-119281637,Products are sortable,"",1,"May 9, 2016","May 15, 2016",feature,1,unstarted,"May 10, 2016",,,TJ Taylor,"As a purchaser
+So that our other users can order MANY things (and not just teddy bears).",https://www.pivotaltracker.com/story/show/128078625,
+128078627,Products are sortable,"",76,"Jan 15, 2018","Jan 21, 2018",feature,1,unstarted,"May 10, 2016",,,Christopher Wang,"As a purchaser
 I want to be able to sort product listings
 So that I can put the cheapest ones first
 
@@ -11,31 +12,9 @@ So that I can put the cheapest ones first
 /products?sort=-name // Sort descending
 /products?sort=price // Sort ascending
 /products?sort=-price // Sort descending
-```",https://www.pivotaltracker.com/story/show/119281637,
-119252023,Querying for a bank that doesn't exist is borked,"",1,"May 9, 2016","May 15, 2016",bug,,unstarted,"May 10, 2016",,,TJ Taylor,,https://www.pivotaltracker.com/story/show/119252023,
-119281125,Banks can present a transaction history,"",1,"May 9, 2016","May 15, 2016",feature,1,unstarted,"May 10, 2016",,,TJ Taylor,"As a purchaser
-I want to see a transaction history
-So I can see where all my money went",https://www.pivotaltracker.com/story/show/119281125,
-119249937,Purchases cannot be made that would cause the bank to drop below $0,"",1,"May 9, 2016","May 15, 2016",feature,1,unstarted,"May 9, 2016",,,TJ Taylor,"As a user
-I want to forbid over-drawing my account
-So that I don't get in trouble with the bank.
-
-The error response from the bank should be
-
-```json
-{""error"": ""insufficient-funds""}
-```",https://www.pivotaltracker.com/story/show/119249937,
-119250011,Carts should be CRUD-able,"",1,"May 9, 2016","May 15, 2016",feature,1,unstarted,"May 9, 2016",,,TJ Taylor,"As a purchaser
-I want to be able to manage my own cart
-So that I don't have to share with my sister",https://www.pivotaltracker.com/story/show/119250011,
-119280927,Receipts contain product information (name and price),"",1,"May 9, 2016","May 15, 2016",feature,1,unstarted,"May 10, 2016",,,TJ Taylor,"As a purchaser
-I want to see product information in my receipts
-So I can see all the wonderful things I've bought",https://www.pivotaltracker.com/story/show/119280927,
-119251769,The purchase API does not work on Prod,"",1,"May 9, 2016","May 15, 2016",bug,,unstarted,"May 9, 2016",,,TJ Taylor,"```
-$ curl gobanking-purchase.cfapps.pez.pivotal.io/checkout -d'{""account_id"": 1}'
-502 Bad Gateway: Registered endpoint failed to handle the request.
-```",https://www.pivotaltracker.com/story/show/119251769,
-119281499,Products are searchable,"",1,"May 9, 2016","May 15, 2016",feature,1,unstarted,"May 10, 2016",,,TJ Taylor,"As a purchaser
+```",https://www.pivotaltracker.com/story/show/128078627,
+128078629,Querying for a bank that doesn't exist is borked,"",76,"Jan 15, 2018","Jan 21, 2018",bug,,unstarted,"May 10, 2016",,,Christopher Wang,,https://www.pivotaltracker.com/story/show/128078629,
+128078641,Products are searchable,"",76,"Jan 15, 2018","Jan 21, 2018",feature,1,unstarted,"May 10, 2016",,,Christopher Wang,"As a purchaser
 I want to search for products
 So that I don't have to know what I'm looking for to find it.
 
@@ -43,18 +22,40 @@ Add ability to search on tags, description, name
 
 ```
 /products?q=<some query>
-```",https://www.pivotaltracker.com/story/show/119281499,
-119281345,Products have inventory,"",1,"May 9, 2016","May 15, 2016",feature,1,unstarted,"May 10, 2016",,,TJ Taylor,"As a warehouse operator
+```",https://www.pivotaltracker.com/story/show/128078641,
+128078643,Products have inventory,"",76,"Jan 15, 2018","Jan 21, 2018",feature,1,unstarted,"May 10, 2016",,,Christopher Wang,"As a warehouse operator
 I want to manage product inventory
-So that I don't have unhappy customers when I can't fulfill an order",https://www.pivotaltracker.com/story/show/119281345,
-119281919,Transfer funds to another bank,"",1,"May 9, 2016","May 15, 2016",feature,1,unstarted,"May 10, 2016",,,TJ Taylor,"As a user
+So that I don't have unhappy customers when I can't fulfill an order",https://www.pivotaltracker.com/story/show/128078643,
+128078645,Transfer funds to another bank,"",76,"Jan 15, 2018","Jan 21, 2018",feature,1,unstarted,"May 10, 2016",,,Christopher Wang,"As a user
 I want to be able to transfer funds to another user
 So that they can do the shopping for me.
 
 ```
-POST /banks/13/transfer 
+POST /banks/13/transfer
 {""recipient_id"": 12, ""amount"": {""money"": 9.33, ""currency"": ""USD""}}
-``` ",https://www.pivotaltracker.com/story/show/119281919,
-119251743,Add ability to place a hold against a bank,"",1,"May 9, 2016","May 15, 2016",feature,1,unstarted,"May 9, 2016",,,TJ Taylor,"As a user
+``` ",https://www.pivotaltracker.com/story/show/128078645,
+128078631,Banks can present a transaction history,"",76,"Jan 15, 2018","Jan 21, 2018",feature,1,unstarted,"May 10, 2016",,,Christopher Wang,"As a purchaser
+I want to see a transaction history
+So I can see where all my money went",https://www.pivotaltracker.com/story/show/128078631,
+128078633,Purchases cannot be made that would cause the bank to drop below $0,"",76,"Jan 15, 2018","Jan 21, 2018",feature,1,unstarted,"May 9, 2016",,,Christopher Wang,"As a user
+I want to forbid over-drawing my account
+So that I don't get in trouble with the bank.
+
+The error response from the bank should be
+
+```json
+{""error"": ""insufficient-funds""}
+```",https://www.pivotaltracker.com/story/show/128078633,
+128078635,Carts should be CRUD-able,"",76,"Jan 15, 2018","Jan 21, 2018",feature,1,unstarted,"May 9, 2016",,,Christopher Wang,"As a purchaser
+I want to be able to manage my own cart
+So that I don't have to share with my sister",https://www.pivotaltracker.com/story/show/128078635,
+128078637,Receipts contain product information (name and price),"",76,"Jan 15, 2018","Jan 21, 2018",feature,1,unstarted,"May 10, 2016",,,Christopher Wang,"As a purchaser
+I want to see product information in my receipts
+So I can see all the wonderful things I've bought",https://www.pivotaltracker.com/story/show/128078637,
+128078639,The purchase API does not work on Prod,"",76,"Jan 15, 2018","Jan 21, 2018",bug,,unstarted,"May 9, 2016",,,Christopher Wang,"```
+$ curl gobanking-purchase.cfapps.pez.pivotal.io/checkout -d'{""account_id"": 1}'
+502 Bad Gateway: Registered endpoint failed to handle the request.
+```",https://www.pivotaltracker.com/story/show/128078639,
+128078647,Add ability to place a hold against a bank,"",77,"Jan 22, 2018","Jan 28, 2018",feature,1,unstarted,"May 9, 2016",,,Christopher Wang,"As a user
 I want to place holds against banks
-So that multiple transactions cannot be made at one time against the same bank",https://www.pivotaltracker.com/story/show/119251743,
+So that multiple transactions cannot be made at one time against the same bank",https://www.pivotaltracker.com/story/show/128078647,

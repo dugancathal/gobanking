@@ -9,10 +9,27 @@ One canned-interview to rule them all...
   git clone git@github.com:dugancathal/gobanking.git
   cd gobanking
   . bin/setup [java|go (backend language)] [react|angular2 (frontend framework)] 
+  bin/test all
   ```
 
-1. Import stories.csv to tracker
+1. Import stories/gobanking.csv to tracker
 1. Select a story and get crackin'
+
+## To view the app in the browser
+
+1. Run `. bin/setup` as described in the instructions for interviewers
+
+1. Serve the app by running `bin/boot`
+
+1. Navigate to port 8080 on the docker machine url (run `docker-machine url` to determine the host)
+
+## Note on running the Java tests locally (outside of docker)
+
+You will need to specify the local endpoints for BANK_URL, PRODUCT_URL, PURCHASE_URL, CART_URL, either in the IDE or
+from the command line. For most setups, this should work:
+```bash
+CART_URL=http://localhost:8080 PRODUCT_URL=http://localhost:8080 BANK_URL=http://localhost:8080 PURCHASE_URL=http://localhost:8080 ./gradlew test
+```
 
 ### A note on structure
 

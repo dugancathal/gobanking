@@ -5,5 +5,5 @@
 gem install bundler
 bundle
 ./gradlew bootRun &
-rspec
+bundle exec rspec
 ```

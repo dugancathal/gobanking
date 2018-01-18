@@ -6,7 +6,7 @@ if [[ -z $BACKEND_DIR ]]; then
 fi
 
 if [[ -z "$1" ]]; then
-    echo "USAGE: $0 [e2e|api|backend|frontend|all]" 1>&2
+    echo "USAGE: $0 [api|backend|frontend|all]" 1>&2
     exit 2
 fi
 
@@ -15,19 +15,15 @@ case "$1" in
     api)
         docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm api-tests
         ;;
-    e2e)
-        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml -f $FRONTEND_DIR/docker-compose.yml run --rm e2e-tests
-        ;;
     backend)
         docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm backend-tests
         ;;
     frontend)
-        docker-compose -f docker-compose.yml -f $FRONTEND_DIR/docker-compose.yml run --rm frontend-tests
+        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml -f $FRONTEND_DIR/docker-compose.yml run --rm frontend-tests
         ;;
     all)
         docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm backend-tests
         docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml run --rm api-tests
-        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml -f $FRONTEND_DIR/docker-compose.yml run --rm e2e-tests
-        docker-compose -f docker-compose.yml -f $FRONTEND_DIR/docker-compose.yml run --rm frontend-tests
+        docker-compose -f docker-compose.yml -f $BACKEND_DIR/docker-compose.yml -f $FRONTEND_DIR/docker-compose.yml run --rm frontend-tests
         ;;
 esac
