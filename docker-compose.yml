@@ -12,7 +12,6 @@ services:
       - cart:cart.dev
       - bank:bank.dev
       - products:products.dev
-
   backend-tests:
     image: 'backend-tests:v1'
     links:
@@ -52,14 +51,3 @@ services:
       context: '${FRONTEND_DIR}'
     volumes:
       - './${FRONTEND_DIR}/src/client:/usr/share/nginx/html'
-  frontend-tests:
-    image: 'frontend-react-tests:v1'
-    build:
-      context: '${FRONTEND_DIR}'
-      dockerfile: 'test.dockerfile'
-    links:
-      - cart:cart.dev
-      - bank:bank.dev
-      - products:products.dev
-      - purchase:purchase.dev
-    command: "npm test"

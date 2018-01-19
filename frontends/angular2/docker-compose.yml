@@ -5,3 +5,9 @@ services:
       context: '${FRONTEND_DIR}'
     volumes:
       - './${FRONTEND_DIR}:/usr/share/nginx/html'
+  frontend-tests:
+      image: 'frontend-angular-tests:v1'
+      build:
+        context: '${FRONTEND_DIR}'
+        dockerfile: 'test.dockerfile'
+      command: "npm test"
