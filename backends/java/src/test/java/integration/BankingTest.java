@@ -1,18 +1,15 @@
 package integration;
 
-import com.dugancathal.javabanking.*;
+import com.dugancathal.javabanking.Bank;
+import com.dugancathal.javabanking.Money;
+import com.dugancathal.javabanking.Product;
+import com.dugancathal.javabanking.Receipt;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
-import org.springframework.context.ApplicationContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
@@ -21,9 +18,8 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebIntegrationTest
-@SpringApplicationConfiguration(BankApi.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
 public class BankingTest {
 	private static final double DOUBLE_TOLERANCE = 0.001;
 	private RestTemplate restTemplate;

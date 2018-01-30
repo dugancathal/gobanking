@@ -2,10 +2,12 @@ package com.dugancathal.javabanking;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.Map;
@@ -14,14 +16,19 @@ import java.util.Map;
 public class HttpProductService implements ProductService {
 	@Autowired
 	private Environment env;
-	private RestTemplate httpClient = new RestTemplate();
+	private OkHttpClient httpClient = new OkHttpClient();
 	private ObjectMapper jsonMapper = new ObjectMapper();
 
 	@Override
 	public Money getProductPrice(String productId) {
-		String responseBody = httpClient.getForObject(String.format("%s/products/%s", url(), productId), String.class);
+		Request request = new Request.Builder()
+				.url(String.format("%s/products/%s", url(), productId))
+				.get()
+				.build();
 		try {
-			Map<String, Object> body = jsonMapper.readValue(responseBody, new TypeReference<Map<String, Object>>(){});
+			Response response = httpClient.newCall(request).execute();
+
+			Map<String, Object> body = jsonMapper.readValue(response.body().string(), new TypeReference<Map<String, Object>>() {});
 			Map<?, ?> priceMap = (Map<?, ?>) body.get("price");
 			int pennies = (int) ((Double)priceMap.get("money") * 100);
 			return new Money(pennies);
