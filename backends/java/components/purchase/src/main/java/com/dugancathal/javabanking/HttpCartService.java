@@ -2,10 +2,12 @@ package com.dugancathal.javabanking;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,15 +18,19 @@ import static java.util.Collections.emptyList;
 public class HttpCartService implements CartService {
 	@Autowired
 	private Environment env;
-	private RestTemplate httpClient = new RestTemplate();
+	private OkHttpClient httpClient = new OkHttpClient();
 	private ObjectMapper jsonMapper = new ObjectMapper();
 
 	@Override
 	public List<String> getItemIds() {
-		String responseBody = httpClient.getForObject(String.format("%s/cart/items", url()), String.class);
+		Request request = new Request.Builder()
+				.url(String.format("%s/cart/items", url()))
+				.get()
+				.build();
 		List<String> itemIds = emptyList();
 		try {
-			itemIds = jsonMapper.readValue(responseBody, new TypeReference<List<String>>(){});
+			Response response = httpClient.newCall(request).execute();
+			itemIds = jsonMapper.readValue(response.body().string(), new TypeReference<List<String>>(){});
 		} catch (IOException e) {}
 		return itemIds;
 	}
