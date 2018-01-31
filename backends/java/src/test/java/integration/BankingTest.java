@@ -34,8 +34,8 @@ public class BankingTest {
 		String bankId = createPiggyBank();
 		depositFunds(bankId, 20.00);
 		addProductToCart("TeddyBear");
-		String purchaseId = checkout(bankId).getId();
-		Receipt receipt = getReceipt(purchaseId);
+		String receiptId = checkout(bankId).getId();
+		Receipt receipt = getReceipt(receiptId);
 
 		assertEquals(9.99, receipt.getSubtotal().getMoney(), DOUBLE_TOLERANCE);
 		assertEquals(0.80, receipt.getTax().getMoney(), DOUBLE_TOLERANCE);

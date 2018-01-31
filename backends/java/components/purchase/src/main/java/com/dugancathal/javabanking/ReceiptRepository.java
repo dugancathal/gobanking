@@ -10,9 +10,11 @@ import java.util.Random;
 public class ReceiptRepository {
 
 	private Map<String, Receipt> receiptMap = new HashMap<>();
+	private Integer id = 0;
 
 	public Receipt create(Money subtotal, Money tax, Money total) {
-		Receipt receipt = new Receipt(nextId());
+		id++;
+		Receipt receipt = new Receipt(id.toString());
 		receiptMap.put(receipt.getId(), receipt);
 		receipt.setSubtotal(subtotal);
 		receipt.setTax(tax);
@@ -25,7 +27,5 @@ public class ReceiptRepository {
 		return receiptMap.get(id);
 	}
 
-	private String nextId() {
-		return Integer.toString(new Random().nextInt());
-	}
+
 }

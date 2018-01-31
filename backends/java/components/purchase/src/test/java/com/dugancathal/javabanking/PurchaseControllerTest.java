@@ -1,5 +1,6 @@
 package com.dugancathal.javabanking;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +10,10 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.Collections.emptyList;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class PurchaseControllerTest {
 
@@ -86,6 +90,18 @@ public class PurchaseControllerTest {
 		Receipt receipt = purchaseController.checkout(body);
 
 		assertEquals(receipt, purchaseController.getReceipt(receipt.getId()));
+	}
+
+	@Test
+	public void checkout_receiptIdIsMonotonicallyIncreasing() {
+		cartService.setItemIds(Arrays.asList("foo-id", "bar-id"));
+		productService.setProductPrices(prices);
+
+		Receipt receipt = purchaseController.checkout(body);
+		assertEquals(receipt.getId(), "1");
+
+		receipt = purchaseController.checkout(body);
+		assertEquals(receipt.getId(), "2");
 	}
 
 	@Test
