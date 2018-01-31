@@ -1,6 +1,5 @@
 package com.dugancathal.javabanking;
 
 public interface ProductService {
-
-	public Money getProductPrice(String productId);
+	public Product getProduct(String productId);
 }

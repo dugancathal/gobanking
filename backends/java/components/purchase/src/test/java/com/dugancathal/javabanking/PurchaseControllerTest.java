@@ -1,6 +1,5 @@
 package com.dugancathal.javabanking;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,10 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import static java.util.Collections.emptyList;
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class PurchaseControllerTest {
 
@@ -21,19 +17,19 @@ public class PurchaseControllerTest {
 	private ReceiptRepository receiptRepository;
 	private FakeCartService cartService;
 	private FakeProductService productService;
-	private Map<String, Money> prices;
 	private FakeBankService bankService;
+	private Map<String, Product> products;
 	private	Map<String,String> body;
 
 
 	@Before
 	public void setup() {
 		body = new HashMap<>();
-		prices = new HashMap<>();
+		products = new HashMap<>();
 		body.put("account_id", "4");
 
-		prices.put("foo-id", new Money(600));
-		prices.put("bar-id", new Money(400));
+		products.put("foo-id", new Product("foo-id","Bear","Teddy Bear", new Money(600)));
+		products.put("bar-id", new Product("bar-id","Scooter","Razor Scooter", new Money(400)));
 
 		cartService = new FakeCartService();
 		productService = new FakeProductService();
@@ -45,17 +41,17 @@ public class PurchaseControllerTest {
 	@Test
 	public void checkout_retrievesItemsFromCart() {
 		cartService.setItemIds(Arrays.asList("foo-id"));
-		productService.setProductPrices(prices);
+		productService.setProducts(products);
 
 		purchaseController.checkout(body);
 
-		assertEquals("foo-id", productService.getProductPriceWasCalledWith);
+		assertEquals("foo-id", productService.getProductWasCalledWith);
 	}
 
 	@Test
 	public void checkout_calculatesSubtotalByProductPrices() {
 		cartService.setItemIds(Arrays.asList("foo-id", "bar-id"));
-		productService.setProductPrices(prices);
+		productService.setProducts(products);
 
 		Receipt receipt = purchaseController.checkout(body);
 
@@ -63,9 +59,19 @@ public class PurchaseControllerTest {
 	}
 
 	@Test
+	public void checkout_getsProductInfoFromProductId() {
+		cartService.setItemIds(Arrays.asList("foo-id"));
+		productService.setProducts(products);
+
+		purchaseController.checkout(body);
+
+		assertEquals(productService.getProductWasCalledWith, "foo-id");
+	}
+
+	@Test
 	public void checkout_calculatesTaxBasedOnSubtotal() {
 		cartService.setItemIds(Arrays.asList("foo-id", "bar-id"));
-		productService.setProductPrices(prices);
+		productService.setProducts(products);
 
 		Receipt receipt = purchaseController.checkout(body);
 
@@ -75,7 +81,7 @@ public class PurchaseControllerTest {
 	@Test
 	public void checkout_calculatesTotalBasedOnSubtotalAndTax() {
 		cartService.setItemIds(Arrays.asList("foo-id", "bar-id"));
-		productService.setProductPrices(prices);
+		productService.setProducts(products);
 
 		Receipt receipt = purchaseController.checkout(body);
 
@@ -85,7 +91,7 @@ public class PurchaseControllerTest {
 	@Test
 	public void checkout_savesTheReceipt() {
 		cartService.setItemIds(Arrays.asList("foo-id", "bar-id"));
-		productService.setProductPrices(prices);
+		productService.setProducts(products);
 
 		Receipt receipt = purchaseController.checkout(body);
 
@@ -95,7 +101,7 @@ public class PurchaseControllerTest {
 	@Test
 	public void checkout_receiptIdIsMonotonicallyIncreasing() {
 		cartService.setItemIds(Arrays.asList("foo-id", "bar-id"));
-		productService.setProductPrices(prices);
+		productService.setProducts(products);
 
 		Receipt receipt = purchaseController.checkout(body);
 		assertEquals(receipt.getId(), "1");
@@ -107,7 +113,7 @@ public class PurchaseControllerTest {
 	@Test
 	public void checkout_withdrawsTheTotalFromTheSpecifiedBank() {
 		cartService.setItemIds(Arrays.asList("foo-id", "bar-id"));
-		productService.setProductPrices(prices);
+		productService.setProducts(products);
 
 		purchaseController.checkout(body);
 
@@ -131,17 +137,17 @@ public class PurchaseControllerTest {
 	}
 
 	private class FakeProductService implements ProductService {
-		public String getProductPriceWasCalledWith;
-		private Map<String, Money> productPrices;
+		public String getProductWasCalledWith;
+		private Map<String, Product> products;
 
 		@Override
-		public Money getProductPrice(String productId) {
-			getProductPriceWasCalledWith =  productId;
-			return productPrices.get(productId);
+		public Product getProduct(String productId) {
+			getProductWasCalledWith =  productId;
+			return products.get(productId);
 		}
 
-		public void setProductPrices(Map<String, Money> productPrices) {
-			this.productPrices = productPrices;
+		public void setProducts(Map<String, Product> products) {
+			this.products = products;
 		}
 	}
 

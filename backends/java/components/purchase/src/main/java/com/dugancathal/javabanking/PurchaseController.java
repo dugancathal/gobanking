@@ -3,8 +3,11 @@ package com.dugancathal.javabanking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class PurchaseController {
@@ -24,9 +27,12 @@ public class PurchaseController {
 
 	@RequestMapping(path="/checkout", method= RequestMethod.POST)
 	public Receipt checkout(@RequestBody Map<String,String> body) {
-		Optional<Money> maybeSubtotal = cartService.getItemIds().stream()
-				.map(productId -> productService.getProductPrice(productId))
-				.reduce((price, memo) -> memo.add(price));
+		List<Product> products = cartService.getItemIds().stream()
+				.map(productId -> productService.getProduct(productId)).collect(Collectors.toList());
+
+		Optional<Money> maybeSubtotal = products.stream()
+				.map(product -> product.getPrice())
+				.reduce((memo, price) -> memo.add(price));
 
 		if (maybeSubtotal.isPresent()) {
 			Money subtotal = maybeSubtotal.get();
@@ -37,10 +43,9 @@ public class PurchaseController {
 
 			bankService.makeWithdrawal(body.get("account_id"), total);
 
-			Receipt receipt = receiptRepository.create(subtotal, tax, total);
-			return receipt;
+			return receiptRepository.create(subtotal, tax, total, products);
 		} else {
-			return new Receipt("1", new Money(0), new Money(0), new Money(0));
+			return new Receipt("1", new Money(0), new Money(0), new Money(0), Collections.emptyList());
 		}
 	}
 

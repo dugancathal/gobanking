@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -40,6 +41,12 @@ public class BankingTest {
 		assertEquals(9.99, receipt.getSubtotal().getMoney(), DOUBLE_TOLERANCE);
 		assertEquals(0.80, receipt.getTax().getMoney(), DOUBLE_TOLERANCE);
 		assertEquals(10.79, receipt.getTotal().getMoney(), DOUBLE_TOLERANCE);
+
+		List<Product> products = receipt.getProducts();
+		assertEquals(products.size(), 1);
+		Product product = products.get(0);
+		assertEquals(product.getDescription(), "Soft and Cuddly");
+		assertEquals(product.getName(), "TeddyBear");
 
 		assertEquals(9.21, fundsIn(bankId).getMoney(), DOUBLE_TOLERANCE);
 	}

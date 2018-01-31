@@ -3,6 +3,8 @@ package com.dugancathal.javabanking;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Collections;
+
 import static org.junit.Assert.*;
 
 public class ReceiptRepositoryTest {
@@ -16,25 +18,30 @@ public class ReceiptRepositoryTest {
 	
 	@Test
 	public void canCreateReceiptsWithIds() {
-		Receipt newReceipt = receiptRepository.create(subtotal, tax, total);
-		Receipt newReceipt2 = receiptRepository.create(subtotal, tax, total);
+		Receipt newReceipt = receiptRepository.create(subtotal, tax, total, Collections.emptyList());
+		Receipt newReceipt2 = receiptRepository.create(subtotal, tax, total, Collections.emptyList());
 
 		assertNotEquals(newReceipt, newReceipt2);
 	}
 
 	@Test
 	public void canRetrieveCreatedReceipts() {
-		Receipt newReceipt = receiptRepository.create(subtotal, tax, total);
+		Receipt newReceipt = receiptRepository.create(subtotal, tax, total, Collections.emptyList());
 
 		assertEquals(newReceipt, receiptRepository.find(newReceipt.getId()));
 	}
 
 	@Test
 	public void receiptsPersist() {
-		Receipt newReceipt = receiptRepository.create(subtotal, tax, total);
+		Product product = new Product("13", "hi", "there", new Money(0));
+		Receipt newReceipt = receiptRepository.create(subtotal, tax, total, Collections.singletonList(product));
 
-		newReceipt.setTotal(new Money(100));
+		Receipt receipt = receiptRepository.find(newReceipt.getId());
 
-		assertEquals(newReceipt, receiptRepository.find(newReceipt.getId()));
+		assertEquals(newReceipt, receipt);
+		assertEquals(receipt.getSubtotal(), subtotal);
+		assertEquals(receipt.getTax(), tax);
+		assertEquals(receipt.getTotal(), total);
+		assertTrue(receipt.getProducts().contains(product));
 	}
 }
